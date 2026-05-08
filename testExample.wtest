@@ -1,9 +1,23 @@
+// testExample.wtest
+// testExample.wtest
+// testExample.wtest
+// testExample.wtest
+// testExample.wtest
+// testExample.wtest
+// testExample.wtest
 import example.*
 
 describe "group of tests for pepita" {
 
-  test "pepita has initial energy" {
-    //assert.equals()
+  test "Que roberto (90kg) puede llevar un paquete que está pago en un camión que tiene un acoplado" {
+    roberto.cambiarMovilidad(camion)
+    paquete.cambiarDestino(puetebroclyng)
+    assert.equals(100,100)
+  }
+
+    test "Que neo con crédito no puede llevar un paquete que no está pago a la matrix" {
+    
+    assert.notThat(paquete.puedeEntregarse(neo))
   }
 
 }

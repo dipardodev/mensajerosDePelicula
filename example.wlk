@@ -12,6 +12,10 @@
 // example.wlk
 // example.wlk
 // example.wlk
+// example.wlk
+// example.wlk
+// example.wlk
+// example.wlk
 
 //paquete:
 object paquete {
@@ -20,7 +24,7 @@ object paquete {
   method destino(){return destino}
   method cambiarDestino(elemento){destino = elemento}
   method puedeEntregarse(mensajero){
-    return self.destino().puedePasar(mensajero)}
+    return self.destino().puedePasar(mensajero) and self.estaPago()}
   method pagar(){pago = !pago}  
   method estaPago(){return pago}  
 }
@@ -32,12 +36,12 @@ object paquetito {
 
 object paqueton{
   const destinos = []
-  var precio = 0
+  var precio = 50
   var pago = 0
   method agregarDestino(elemento){
     destinos.add(elemento)
   }
-  method aumentarPrecio(){precio = destinos.size() * 100}
+  method aumentarPrecio(){precio += destinos.size() * 100}
   method pagoParcial(elemento){
     pago += elemento
   }
@@ -46,7 +50,7 @@ object paqueton{
   method estaPago(){
     return self.pago() == self.precio()
   }
-  method esEnvio(mensajero){return self.estaPago() and destinos.all({p => p.puedePasar(mensajero)})}
+  method puedeEntregarse(mensajero){return self.estaPago() and destinos.all({p => p.puedePasar(mensajero)})}
 }
 
 
@@ -58,7 +62,7 @@ object puetebroclyng {
 }
 object matrix {
   method puedePasar(elemento){
-    elemento.puedeLlamar()
+    return elemento.puedeLlamar()
   }
 }
 //Mensajeros posibles:
@@ -102,12 +106,13 @@ object camion{
 
 object empresa {
   const mensajeros = []
+  var tipoPaquete = paquete
+  method tipoPaquete(){return tipoPaquete}
+  method modificarPaquete(elemento){tipoPaquete = elemento}
   method contratarMensajero(mensajero){mensajeros.add(mensajero)}
   method despedirMensajero(mensajero){mensajeros.remove(mensajero)}
   method despedirATodos(){mensajeros.removeAll()} 
   method esGrande(){return mensajeros.size() > 2}
-  method puedeSerEntregadoPorElPrimer(){return paquete.estaPago() and paquete.puedeEntregarse(mensajeros.first())}
+  method puedeSerEntregadoPorElPrimer(){return self.tipoPaquete().estaPago() and self.tipoPaquete().puedeEntregarse(mensajeros.first())}
   method pesoDelUltimoEmpleado(){return mensajeros.last().peso()}
-
-
 }
